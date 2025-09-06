@@ -1,0 +1,41 @@
+# -------------------------
+# Java / Maven / Spring
+# -------------------------
+/target/
+/*.log
+/*.jar
+/*.war
+/.mvn/wrapper/maven-wrapper.jar
+
+# IDEs
+/.idea/
+/*.iml
+.vscode/
+
+# Do not commit real application config with secrets
+/src/main/resources/application.yml
+/src/main/resources/application-*.yml
+
+# Lombok generated
+*.class
+
+# -------------------------
+# Node
+# -------------------------
+node_modules/
+dist/
+
+# -------------------------
+# OS / Temp
+# -------------------------
+.DS_Store
+Thumbs.db
+~$*
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# OneDrive / user temp (opcional)
+desktop.ini
