@@ -23,6 +23,7 @@ public class Car {
     private int year;
     private String plate;
     private String color;
+    private double price;
 
     // Relación Many-to-One con la entidad User (propietario del carro)
     @ManyToOne
