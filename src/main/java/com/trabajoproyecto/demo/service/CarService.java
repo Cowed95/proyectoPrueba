@@ -1,5 +1,6 @@
 package com.trabajoproyecto.demo.service;
 
+// importaciones necesarias
 import com.trabajoproyecto.demo.entity.Car;
 import com.trabajoproyecto.demo.entity.User;
 import com.trabajoproyecto.demo.repository.CarRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+// Servicio para la entidad Car, manejando la lógica de negocio
 @Getter
 @Setter
 @Service
@@ -20,6 +22,45 @@ public class CarService {
 
     @Autowired
     private CarRepository carRepository;
+
+    // -----
+    // Métodos generales
+    // -----
+
+    // Guardar carro sin validar usuario
+    public Car saveCar(Car car) {
+        return carRepository.save(car);
+    }
+
+    // Obtener todos los carros
+    public List<Car> getAllCars() {
+        return carRepository.findAll();
+    }
+
+    // Obtener carro por id
+    public Optional<Car> getCarById(Long id) {
+        return carRepository.findById(id);
+    }
+
+    // Actualizar carro sin validar usuario
+    public Car updateCar(Long id, Car carDetails) {
+        return carRepository.findById(id).map(car -> {
+            car.setBrand(carDetails.getBrand());
+            car.setModel(carDetails.getModel());
+            car.setYear(carDetails.getYear());
+            car.setPlate(carDetails.getPlate());
+            car.setColor(carDetails.getColor());
+            car.setPrice(carDetails.getPrice());
+            return carRepository.save(car);
+        }).orElseThrow(() -> new RuntimeException("Vehiculo no encontrado con id " + id));
+    }
+
+    // Eliminar carro sin validar usuario
+    public void deleteCar(Long id) {
+        carRepository.deleteById(id);
+    }
+
+    // Métodos con validación de usuario
 
     // Obtener todos los carros de un usuario específico
     public List<Car> getCarsByUser(User owner) {
@@ -51,14 +92,14 @@ public class CarService {
                     car.setPrice(carDetails.getPrice());
                     return carRepository.save(car);
                 })
-                .orElseThrow(() -> new RuntimeException("Car not found or not owned by user"));
+                .orElseThrow(() -> new RuntimeException("Vehiculo no encontrado o no pertenece al usuario"));
     }
 
     // Eliminar un carro solo si pertenece al usuario
     public void deleteCarForUser(Long id, User owner) {
         Car car = carRepository.findById(id)
                 .filter(c -> c.getOwner().getId().equals(owner.getId()))
-                .orElseThrow(() -> new RuntimeException("Car not found or not owned by user"));
+                .orElseThrow(() -> new RuntimeException("Vehiculo no encontrado o no pertenece al usuario"));
         carRepository.delete(car);
     }
 }
