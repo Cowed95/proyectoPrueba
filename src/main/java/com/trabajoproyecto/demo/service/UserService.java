@@ -1,5 +1,6 @@
 package com.trabajoproyecto.demo.service;
 
+// importaciones necesarias
 import com.trabajoproyecto.demo.entity.User;
 import com.trabajoproyecto.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+
+// Servicio para la entidad User, manejando la lógica de negocio
 @Service
 @RequiredArgsConstructor
 public class UserService {
