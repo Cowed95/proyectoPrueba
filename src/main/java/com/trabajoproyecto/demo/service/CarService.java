@@ -67,6 +67,11 @@ public class CarService {
         return carRepository.findByOwnerId(owner.getId());
     }
 
+    // Obtener todos los carros de un usuario por su ID
+    public List<Car> getCarsByUserId(Long userId) {
+        return carRepository.findByOwnerId(userId);
+    }
+
     // Obtener un carro por ID, validando que sea del usuario
     public Optional<Car> getCarByIdForUser(Long id, User owner) {
         return carRepository.findById(id)
