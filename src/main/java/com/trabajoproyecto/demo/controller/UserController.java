@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 // Controlador REST para la entidad User, manejando las solicitudes HTTP
 @RestController
 @RequestMapping("/api/users")
@@ -24,7 +23,13 @@ public class UserController {
         return ResponseEntity.ok(userService.saveUser(user));
     }
 
-        // Listar todos los usuarios
+    // Actualizar usuario
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+        return ResponseEntity.ok(userService.updateUser(id, userDetails));
+    }
+
+    // Listar todos los usuarios
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
@@ -37,6 +42,7 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
     // Eliminar usuario
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
