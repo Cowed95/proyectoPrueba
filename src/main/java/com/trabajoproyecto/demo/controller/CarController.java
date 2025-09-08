@@ -80,17 +80,15 @@ public class CarController {
         return ResponseEntity.ok(savedCar);
     }
 
- // Listar todos los carros de un usuario
-@GetMapping("/users/{userId}")
-public ResponseEntity<List<Car>> getCarsByUser(@PathVariable Long userId) {
-    if (!userRepository.existsById(userId)) {
-        return ResponseEntity.notFound().build();
+    // Listar todos los carros de un usuario
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<List<Car>> getCarsByUser(@PathVariable Long userId) {
+        if (!userRepository.existsById(userId)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<Car> cars = carServiceNew.getCarsByUserId(userId);
+        return ResponseEntity.ok(cars);
     }
-
-    List<Car> cars = carServiceNew.getCarsByUserId(userId);
-    return ResponseEntity.ok(cars);
-}
-
-
 
 }
