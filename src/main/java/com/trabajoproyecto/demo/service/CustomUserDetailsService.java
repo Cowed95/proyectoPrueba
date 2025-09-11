@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 
-// Implementación de UserDetailsService para cargar usuarios por nombre de usuario
+// Implementación de UserDetailsService para cargar usuarios por nombre de usuario y proporcionar detalles de seguridad
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
