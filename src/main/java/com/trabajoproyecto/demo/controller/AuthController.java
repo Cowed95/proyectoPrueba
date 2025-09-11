@@ -36,7 +36,7 @@ public class AuthController {
         User u = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .email(null)
+                .email(request.getEmail())
                 .build();
         userRepository.save(u);
         u.setPassword(null); // no devolver password
