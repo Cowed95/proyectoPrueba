@@ -1,6 +1,9 @@
 package com.trabajoproyecto.demo.security;
 
-// Filtro de autenticación JWT que se ejecuta una vez por solicitud
+// Filtro de autenticación JWT que se ejecuta una vez por solicitud HTTP y verifica el token JWT en el encabezado Authorization
+// si el token es válido, establece la autenticación en el contexto de seguridad de Spring
+// y si no, permite que la solicitud continúe sin autenticación
+
 // importaciones necesarias para el filtro
 import com.trabajoproyecto.demo.service.JwtService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +24,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     // Servicio para manejar operaciones relacionadas con JWT
     // Servicio para cargar detalles del usuario
-    
+
     private final JwtService jwtService;
     private final CustomUserDetailsService userDetailsService;
 
@@ -32,7 +35,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.userDetailsService = uds;
     }
 
-    // Método que se ejecuta para cada solicitud HTTP para autenticar al usuario basado en el token JWT
+    // Método que se ejecuta para cada solicitud HTTP para autenticar al usuario basado en el token JWT 
+    // si está presente en el encabezado Authorization de la solicitud
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -43,6 +47,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String username = null;
         String token = null;
 
+        // Extrae el token JWT del encabezado Authorization si está presente y comienza con "Bearer "
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
             try {
@@ -50,6 +55,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             } catch (Exception ignored) {}
         }
 
+        // Si se extrajo un nombre de usuario y no hay una autenticación ya establecida en el contexto de seguridad
+         // carga los detalles del usuario y valida el token. Si es válido, establece la autenticación en el contexto de seguridad
+         // y si no, continúa con el filtro sin autenticar
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails ud = userDetailsService.loadUserByUsername(username);
             if (jwtService.validateToken(token, ud)) {
