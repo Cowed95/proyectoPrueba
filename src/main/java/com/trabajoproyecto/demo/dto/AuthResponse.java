@@ -1,6 +1,6 @@
 package com.trabajoproyecto.demo.dto;
 
-// DTO para respuestas de autenticación
+// importaciones de Lombok para generar código boilerplate
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -14,6 +14,7 @@ import lombok.*;
 @NoArgsConstructor @AllArgsConstructor @Builder
 public class User {
     
+    // Identificador único del usuario, generado automáticamente
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

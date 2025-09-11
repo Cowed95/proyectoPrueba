@@ -1,6 +1,6 @@
 package com.trabajoproyecto.demo.repository;
 
-// Repositorio para la entidad Car, extendiendo JpaRepository para operaciones CRUD
+// importaciones necesarias para el repositorio
 import com.trabajoproyecto.demo.entity.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;

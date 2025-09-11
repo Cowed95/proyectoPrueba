@@ -1,6 +1,6 @@
 package com.trabajoproyecto.demo.repository;
 
-// Repositorio para la entidad User, extendiendo JpaRepository para operaciones CRUD
+// importaciones necesarias para el repositorio
 import com.trabajoproyecto.demo.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;

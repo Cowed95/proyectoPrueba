@@ -1,5 +1,6 @@
 package com.trabajoproyecto.demo.controller;
 
+// importaciones necesarias para el controlador REST
 import com.trabajoproyecto.demo.entity.Car;
 import com.trabajoproyecto.demo.entity.User;
 import com.trabajoproyecto.demo.repository.UserRepository;
@@ -17,9 +18,11 @@ import java.util.List;
 @RequestMapping("/api/cars")
 public class CarController {
 
+    // Repositorio para acceder a datos de usuarios
     @Autowired
     private UserRepository userRepository;
 
+    // Servicio para manejar la lógica de negocio relacionada con carros
     @Autowired
     private CarService carServiceNew;
 

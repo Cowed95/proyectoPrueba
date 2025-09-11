@@ -15,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
+    // Servicio para manejar la lógica de negocio relacionada con usuarios
     private final UserService userService;
 
     // Crear usuario
