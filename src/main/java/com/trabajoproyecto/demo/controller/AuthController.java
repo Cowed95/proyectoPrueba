@@ -37,9 +37,10 @@ public class AuthController {
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .email(request.getEmail())
+                .role("ROLE_USER")
                 .build();
         userRepository.save(u);
-        u.setPassword(null); // no devolver password
+        u.setPassword(null); // Ocultar la contraseña en la respuesta
         return ResponseEntity.ok(u);
     }
 

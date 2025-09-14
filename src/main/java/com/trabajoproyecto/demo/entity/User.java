@@ -35,4 +35,8 @@ public class User {
     @NotBlank(message = "La contraseña es obligatoria")
     @Size(min = 4, message = "La contraseña debe tener al menos 4 caracteres")
     private String password;
+
+    // El rol del usuario, por ejemplo, "USER" o "ADMIN"
+    @Column(nullable = false)
+    private String role;
 }
