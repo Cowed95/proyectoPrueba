@@ -35,34 +35,53 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.userDetailsService = uds;
     }
 
-    // Método que se ejecuta para cada solicitud HTTP para autenticar al usuario basado en el token JWT 
+    // Método que se ejecuta para cada solicitud HTTP para autenticar al usuario
+    // basado en el token JWT
     // si está presente en el encabezado Authorization de la solicitud
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+            HttpServletResponse response,
+            FilterChain filterChain) throws ServletException, IOException {
+
+        // Ignorar rutas públicas (Swagger, H2, Auth)
+        String path = request.getServletPath();
+        if (path.startsWith("/api/auth")
+                || path.startsWith("/swagger-ui")
+                || path.equals("/swagger-ui.html")
+                || path.equals("/v3/api-docs")
+                || path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger-resources")
+                || path.startsWith("/webjars")
+                || path.startsWith("/h2-console")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         final String authHeader = request.getHeader("Authorization");
         String username = null;
         String token = null;
 
-        // Extrae el token JWT del encabezado Authorization si está presente y comienza con "Bearer "
+        // Extrae el token JWT del encabezado Authorization si está presente y comienza
+        // con "Bearer "
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
             try {
                 username = jwtService.extractUsername(token);
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
 
-        // Si se extrajo un nombre de usuario y no hay una autenticación ya establecida en el contexto de seguridad
-         // carga los detalles del usuario y valida el token. Si es válido, establece la autenticación en el contexto de seguridad
-         // y si no, continúa con el filtro sin autenticar
+        // Si se extrajo un nombre de usuario y no hay una autenticación ya establecida
+        // en el contexto de seguridad
+        // carga los detalles del usuario y valida el token. Si es válido, establece la
+        // autenticación en el contexto de seguridad
+        // y si no, continúa con el filtro sin autenticar
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails ud = userDetailsService.loadUserByUsername(username);
             if (jwtService.validateToken(token, ud)) {
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(ud, null, ud.getAuthorities());
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(ud, null,
+                        ud.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
