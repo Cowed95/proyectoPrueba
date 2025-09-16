@@ -1,3 +1,5 @@
+/* estilos globales y de accesibilidad  */ 
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -12,16 +14,18 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+/* estilos para los enlaces, cuerpo, títulos y botones */
 a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
+/* estilos para los enlaces al pasar el ratón */
 a:hover {
   color: #535bf2;
 }
 
+/* estilos para el cuerpo, títulos y botones */
 body {
   margin: 0;
   display: flex;
@@ -30,10 +34,14 @@ body {
   min-height: 100vh;
 }
 
+/* estilos para los títulos */
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+
+/* estilos para los botones */
 
 button {
   border-radius: 8px;
@@ -46,22 +54,35 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+/* estilos para los botones al pasar el ratón y al enfocar con teclado o ratón */
+
 button:hover {
   border-color: #646cff;
 }
+
+/* estilos para los botones al enfocar con teclado o ratón */
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* estilos para el modo claro */
+
 @media (prefers-color-scheme: light) {
+  /* estilos para los enlaces y botones en modo claro */
   :root {
     color: #213547;
     background-color: #ffffff;
   }
+
+  /* estilos para los enlaces y botones en modo claro */
   a:hover {
     color: #747bff;
   }
+
+  /* estilos para los botones en modo claro */
   button {
     background-color: #f9f9f9;
   }
