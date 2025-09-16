@@ -49,7 +49,6 @@ public class JwtService {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
-                // Verifica la firma del token y extrae el sujeto (nombre de usuario)
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
