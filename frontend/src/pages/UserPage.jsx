@@ -1,7 +1,7 @@
 // importaciones necesarias de React y servicios y manejo de usuarios
 
 import { useEffect, useState } from "react";
-import { getUsers } from "../services/userService";
+import { getUsers } from "../services/UserService";
 
 // Componente de la página de usuarios protegida por token
 // Recibe token y onLogout como props desde App.jsx
