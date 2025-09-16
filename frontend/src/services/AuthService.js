@@ -20,5 +20,12 @@ export async function login(username, password) {
   }
 
   // Retornamos JSON con datos (esperamos que incluya token)
-  return res.json();
+  const data = await res.json();
+
+  // Validamos que venga token
+  if (!data.token) {
+    throw new Error("El servidor no devolvió token. Revisa tu API.");
+  }
+
+  return data;
 }
