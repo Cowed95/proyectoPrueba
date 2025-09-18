@@ -1,7 +1,6 @@
 // importaciones necesarias de React y servicios y manejo de usuarios
-
 import { useEffect, useState } from "react";
-import { getUsers } from "../services/UserService";
+import { getUsers } from "../services/userService";
 
 // Componente de la página de usuarios protegida por token
 // Recibe token y onLogout como props desde App.jsx
@@ -17,18 +16,18 @@ export default function UsersPage({ token, onLogout }) {
   // Cargar usuarios al montar si hay token y manejar errores
   useEffect(() => {
     if (!token) return;
+
     setLoading(true);
     getUsers(token)
-
-    // Manejo de la respuesta y errores comunes de autenticación
-    // Si la respuesta no es ok, lanzar un error y limpiar usuarios en catch
-    // Si es ok, parsear JSON y actualizar estado de usuarios
+      // Manejo de la respuesta y errores comunes de autenticación
+      // Si la respuesta no es ok, lanzar un error y limpiar usuarios en catch
+      // Si es ok, parsear JSON y actualizar estado de usuarios
       .then((data) => setUsers(data))
       .catch((err) => {
         console.error("Error:", err);
+        alert(err.message); // mostramos error al usuario
         setUsers([]);
       })
-
       // Finalmente, limpiar estado de carga
       .finally(() => setLoading(false));
   }, [token]);

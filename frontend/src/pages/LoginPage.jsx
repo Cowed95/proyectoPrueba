@@ -1,5 +1,4 @@
 // importaciones necesarias de React y servicios
-
 import { useState } from "react";
 import { login } from "../services/authService";
 
@@ -21,14 +20,20 @@ export default function LoginPage({ onLogin }) {
     // Limpiar error previo (no usamos estado de error aquí, solo alerta)
     try {
       const data = await login(username, password);
+      // Guardamos token en localStorage para persistir sesión
       localStorage.setItem("token", data.token);
+      // Avisamos al padre (App.jsx) que tenemos token
       onLogin(data.token);
 
       // Limpiar formulario después de login exitoso (no es obligatorio)
+      setUsername("");
+      setPassword("");
     } catch (err) {
       alert(err.message);
       // opcional: limpiar formulario en caso de error
+      setPassword("");
     } finally {
+      // Quitamos estado de carga
       setLoading(false);
     }
   };
